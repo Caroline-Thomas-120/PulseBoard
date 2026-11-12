@@ -1,6 +1,8 @@
 
 import apiClient from "./client";
 
+
+
 // Fetch all campus issues.
 export const getIssues = async () => {
   const response = await apiClient.get("/issues");
@@ -31,4 +33,19 @@ export const updateIssueStatus = async (id, status, token) => {
   );
 
   return response.data.issue;
+};
+
+// Upload an issue image.
+export const uploadIssueImage = async (imageFile, token) => {
+  const formData = new FormData();
+
+  formData.append("image", imageFile);
+
+  const response = await apiClient.post("/upload", formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
 };

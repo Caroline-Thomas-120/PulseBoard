@@ -623,6 +623,8 @@ export const IssueScalarFieldEnum = {
   category: 'category',
   status: 'status',
   priority: 'priority',
+  imageUrl: 'imageUrl',
+  imagePublicId: 'imagePublicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   reporterId: 'reporterId'
@@ -645,6 +647,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 

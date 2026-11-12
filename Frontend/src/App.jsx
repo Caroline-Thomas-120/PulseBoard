@@ -13,9 +13,17 @@ import Auth from "./Auth";
 import About from "./About";
 import CreateIssueForm from "./components/CreateIssueForm";
 import "./index.css";
-import { useQuery } from "@tanstack/react-query";
-import { getIssues } from "./api/issues";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import {
+  getIssues,
+  updateIssueStatus,
+} from "./api/issues";
 import Profile from "./profile";
+import { useIssueSocket } from "./hooks/useIssueSocket";
 
 const queryClient = new QueryClient();
 
@@ -93,7 +101,23 @@ function AllIssuesPage() {
     queryKey: ["issues"],
     queryFn: () => getIssues(),
   });
+const queryClient = useQueryClient();
 
+const statusMutation = useMutation({
+  mutationFn: ({ id, status }) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("Please log in again.");
+    }
+
+    return updateIssueStatus(id, status, token);
+  },
+
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["issues"] });
+  },
+});
   // Support APIs that return either an array or { issues: [...] }.
   const issues = Array.isArray(response)
     ? response
@@ -187,10 +211,23 @@ function AllIssuesPage() {
                         <td>{issue.category || "Other"}</td>
                         <td>{issue.priority || "Medium"}</td>
                         <td>
-                          <span className="issue-status">
-                            {issue.status || "Open"}
-                          </span>
-                        </td>
+  <select
+    className="issue-status-select"
+    value={issue.status || "OPEN"}
+    disabled={statusMutation.isPending}
+    onChange={(event) => {
+      statusMutation.mutate({
+        id: issue.id,
+        status: event.target.value,
+      });
+    }}
+  >
+    <option value="OPEN">Open</option>
+    <option value="IN_PROGRESS">In Progress</option>
+    <option value="RESOLVED">Resolved</option>
+    <option value="CLOSED">Closed</option>
+  </select>
+</td>
                       </tr>
                     ))}
                   </tbody>
@@ -198,6 +235,11 @@ function AllIssuesPage() {
               </div>
             )}
           </section>
+          {statusMutation.isError && (
+  <p role="alert">
+    Could not update status: {statusMutation.error.message}
+  </p>
+)}
         </>
       )}
     </main>
@@ -218,6 +260,13 @@ function PulseBoardApp() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("token"))
   );
+
+  const token = localStorage.getItem("token");
+
+  console.log("PulseBoardApp is rendering");
+  console.log("Token exists:", Boolean(token));
+
+  useIssueSocket(isLoggedIn ? token : null);
 
   function handleLogin() {
     setIsLoggedIn(true);

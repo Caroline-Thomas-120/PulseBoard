@@ -31,6 +31,8 @@ export type IssueMinAggregateOutputType = {
   category: string | null
   status: $Enums.IssueStatus | null
   priority: $Enums.IssuePriority | null
+  imageUrl: string | null
+  imagePublicId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   reporterId: string | null
@@ -43,6 +45,8 @@ export type IssueMaxAggregateOutputType = {
   category: string | null
   status: $Enums.IssueStatus | null
   priority: $Enums.IssuePriority | null
+  imageUrl: string | null
+  imagePublicId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   reporterId: string | null
@@ -55,6 +59,8 @@ export type IssueCountAggregateOutputType = {
   category: number
   status: number
   priority: number
+  imageUrl: number
+  imagePublicId: number
   createdAt: number
   updatedAt: number
   reporterId: number
@@ -69,6 +75,8 @@ export type IssueMinAggregateInputType = {
   category?: true
   status?: true
   priority?: true
+  imageUrl?: true
+  imagePublicId?: true
   createdAt?: true
   updatedAt?: true
   reporterId?: true
@@ -81,6 +89,8 @@ export type IssueMaxAggregateInputType = {
   category?: true
   status?: true
   priority?: true
+  imageUrl?: true
+  imagePublicId?: true
   createdAt?: true
   updatedAt?: true
   reporterId?: true
@@ -93,6 +103,8 @@ export type IssueCountAggregateInputType = {
   category?: true
   status?: true
   priority?: true
+  imageUrl?: true
+  imagePublicId?: true
   createdAt?: true
   updatedAt?: true
   reporterId?: true
@@ -178,6 +190,8 @@ export type IssueGroupByOutputType = {
   category: string
   status: $Enums.IssueStatus
   priority: $Enums.IssuePriority
+  imageUrl: string | null
+  imagePublicId: string | null
   createdAt: Date
   updatedAt: Date
   reporterId: string
@@ -211,6 +225,8 @@ export type IssueWhereInput = {
   category?: Prisma.StringFilter<"Issue"> | string
   status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFilter<"Issue"> | $Enums.IssuePriority
+  imageUrl?: Prisma.StringNullableFilter<"Issue"> | string | null
+  imagePublicId?: Prisma.StringNullableFilter<"Issue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Issue"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string
   reporterId?: Prisma.StringFilter<"Issue"> | string
@@ -224,6 +240,8 @@ export type IssueOrderByWithRelationInput = {
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
@@ -240,6 +258,8 @@ export type IssueWhereUniqueInput = Prisma.AtLeast<{
   category?: Prisma.StringFilter<"Issue"> | string
   status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFilter<"Issue"> | $Enums.IssuePriority
+  imageUrl?: Prisma.StringNullableFilter<"Issue"> | string | null
+  imagePublicId?: Prisma.StringNullableFilter<"Issue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Issue"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string
   reporterId?: Prisma.StringFilter<"Issue"> | string
@@ -253,6 +273,8 @@ export type IssueOrderByWithAggregationInput = {
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
@@ -271,6 +293,8 @@ export type IssueScalarWhereWithAggregatesInput = {
   category?: Prisma.StringWithAggregatesFilter<"Issue"> | string
   status?: Prisma.EnumIssueStatusWithAggregatesFilter<"Issue"> | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityWithAggregatesFilter<"Issue"> | $Enums.IssuePriority
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Issue"> | string | null
+  imagePublicId?: Prisma.StringNullableWithAggregatesFilter<"Issue"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Issue"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Issue"> | Date | string
   reporterId?: Prisma.StringWithAggregatesFilter<"Issue"> | string
@@ -283,6 +307,8 @@ export type IssueCreateInput = {
   category: string
   status?: $Enums.IssueStatus
   priority?: $Enums.IssuePriority
+  imageUrl?: string | null
+  imagePublicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reporter: Prisma.UserCreateNestedOneWithoutIssuesInput
@@ -295,6 +321,8 @@ export type IssueUncheckedCreateInput = {
   category: string
   status?: $Enums.IssueStatus
   priority?: $Enums.IssuePriority
+  imageUrl?: string | null
+  imagePublicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reporterId: string
@@ -307,6 +335,8 @@ export type IssueUpdateInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFieldUpdateOperationsInput | $Enums.IssuePriority
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reporter?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput
@@ -319,6 +349,8 @@ export type IssueUncheckedUpdateInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFieldUpdateOperationsInput | $Enums.IssuePriority
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -331,6 +363,8 @@ export type IssueCreateManyInput = {
   category: string
   status?: $Enums.IssueStatus
   priority?: $Enums.IssuePriority
+  imageUrl?: string | null
+  imagePublicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reporterId: string
@@ -343,6 +377,8 @@ export type IssueUpdateManyMutationInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFieldUpdateOperationsInput | $Enums.IssuePriority
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -354,6 +390,8 @@ export type IssueUncheckedUpdateManyInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFieldUpdateOperationsInput | $Enums.IssuePriority
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reporterId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -376,6 +414,8 @@ export type IssueCountOrderByAggregateInput = {
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
@@ -388,6 +428,8 @@ export type IssueMaxOrderByAggregateInput = {
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
@@ -400,6 +442,8 @@ export type IssueMinOrderByAggregateInput = {
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   reporterId?: Prisma.SortOrder
@@ -455,6 +499,10 @@ export type EnumIssuePriorityFieldUpdateOperationsInput = {
   set?: $Enums.IssuePriority
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type IssueCreateWithoutReporterInput = {
   id?: string
   title: string
@@ -462,6 +510,8 @@ export type IssueCreateWithoutReporterInput = {
   category: string
   status?: $Enums.IssueStatus
   priority?: $Enums.IssuePriority
+  imageUrl?: string | null
+  imagePublicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -473,6 +523,8 @@ export type IssueUncheckedCreateWithoutReporterInput = {
   category: string
   status?: $Enums.IssueStatus
   priority?: $Enums.IssuePriority
+  imageUrl?: string | null
+  imagePublicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -513,6 +565,8 @@ export type IssueScalarWhereInput = {
   category?: Prisma.StringFilter<"Issue"> | string
   status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFilter<"Issue"> | $Enums.IssuePriority
+  imageUrl?: Prisma.StringNullableFilter<"Issue"> | string | null
+  imagePublicId?: Prisma.StringNullableFilter<"Issue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Issue"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string
   reporterId?: Prisma.StringFilter<"Issue"> | string
@@ -525,6 +579,8 @@ export type IssueCreateManyReporterInput = {
   category: string
   status?: $Enums.IssueStatus
   priority?: $Enums.IssuePriority
+  imageUrl?: string | null
+  imagePublicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -536,6 +592,8 @@ export type IssueUpdateWithoutReporterInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFieldUpdateOperationsInput | $Enums.IssuePriority
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -547,6 +605,8 @@ export type IssueUncheckedUpdateWithoutReporterInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFieldUpdateOperationsInput | $Enums.IssuePriority
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -558,6 +618,8 @@ export type IssueUncheckedUpdateManyWithoutReporterInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus
   priority?: Prisma.EnumIssuePriorityFieldUpdateOperationsInput | $Enums.IssuePriority
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -571,6 +633,8 @@ export type IssueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   category?: boolean
   status?: boolean
   priority?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reporterId?: boolean
@@ -584,6 +648,8 @@ export type IssueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   category?: boolean
   status?: boolean
   priority?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reporterId?: boolean
@@ -597,6 +663,8 @@ export type IssueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   category?: boolean
   status?: boolean
   priority?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reporterId?: boolean
@@ -610,12 +678,14 @@ export type IssueSelectScalar = {
   category?: boolean
   status?: boolean
   priority?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reporterId?: boolean
 }
 
-export type IssueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "status" | "priority" | "createdAt" | "updatedAt" | "reporterId", ExtArgs["result"]["issue"]>
+export type IssueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "status" | "priority" | "imageUrl" | "imagePublicId" | "createdAt" | "updatedAt" | "reporterId", ExtArgs["result"]["issue"]>
 export type IssueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -638,6 +708,8 @@ export type $IssuePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     category: string
     status: $Enums.IssueStatus
     priority: $Enums.IssuePriority
+    imageUrl: string | null
+    imagePublicId: string | null
     createdAt: Date
     updatedAt: Date
     reporterId: string
@@ -1071,6 +1143,8 @@ export interface IssueFieldRefs {
   readonly category: Prisma.FieldRef<"Issue", 'String'>
   readonly status: Prisma.FieldRef<"Issue", 'IssueStatus'>
   readonly priority: Prisma.FieldRef<"Issue", 'IssuePriority'>
+  readonly imageUrl: Prisma.FieldRef<"Issue", 'String'>
+  readonly imagePublicId: Prisma.FieldRef<"Issue", 'String'>
   readonly createdAt: Prisma.FieldRef<"Issue", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Issue", 'DateTime'>
   readonly reporterId: Prisma.FieldRef<"Issue", 'String'>

@@ -10,4 +10,20 @@ const apiClient = axios.create({
   timeout: 10000,
 });
 
+// Automatically attach the JWT to API requests.
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export default apiClient;

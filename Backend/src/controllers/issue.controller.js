@@ -5,7 +5,14 @@ import { sendIssueEvent } from "../services/issueEvents.js";
 // Create a new campus issue.
 export const createIssue = async (req, res) => {
   try {
-    const { title, description, category, priority } = req.body;
+    const {
+      title,
+      description,
+      category,
+      priority,
+      imageUrl,
+      imagePublicId,
+    } = req.body;
 
     if (
       !title?.trim() ||
@@ -34,6 +41,8 @@ export const createIssue = async (req, res) => {
         description: description.trim(),
         category: category.trim(),
         priority: priority ?? "MEDIUM",
+        imageUrl: imageUrl || null,
+        imagePublicId: imagePublicId || null,
         reporterId: req.user.id,
       },
       include: {
@@ -46,6 +55,13 @@ export const createIssue = async (req, res) => {
       },
     });
 
+    // Existing SSE notification.
+    sendIssueEvent("issue-created", issue);
+
+    // Existing Socket.IO notification.
+    const io = req.app.get("io");
+    io?.emit("issue:created", { issue });
+
     return res.status(201).json({
       message: "Campus issue created successfully.",
       issue,
@@ -53,13 +69,13 @@ export const createIssue = async (req, res) => {
   } catch (error) {
     console.error("Create issue failed:", error);
 
-    sendIssueEvent("issue-created", issue);
     return res.status(500).json({
       message: "Something went wrong while creating the issue.",
     });
   }
 };
 
+// Update an issue's status.
 export const updateIssueStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,8 +107,22 @@ export const updateIssueStatus = async (req, res) => {
     const issue = await prisma.issue.update({
       where: { id },
       data: { status },
+      include: {
+        reporter: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
     });
-sendIssueEvent("issue-updated", issue);
+
+    // Existing SSE notification.
+    sendIssueEvent("issue-updated", issue);
+
+    // Existing Socket.IO notification.
+    const io = req.app.get("io");
+    io?.emit("issue:updated", { issue });
 
     return res.status(200).json({
       message: "Issue status updated successfully.",
@@ -100,7 +130,6 @@ sendIssueEvent("issue-updated", issue);
     });
   } catch (error) {
     console.error("Update issue status failed:", error);
-sendIssueEvent("issue-updated", issue);
 
     return res.status(500).json({
       message: "Something went wrong while updating the issue.",
@@ -130,7 +159,7 @@ export const getIssues = async (req, res) => {
     console.error("Get issues failed:", error);
 
     return res.status(500).json({
-      message: "Something went wrong while fetching issues.",
+      message: "Something went wrong while fetching the issues.",
     });
   }
 };
