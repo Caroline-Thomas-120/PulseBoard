@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import "./Profile.css";
+import "./profile.css";
 
 const emptyProfile = {
   fullName: "",
