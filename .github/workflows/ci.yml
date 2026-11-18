@@ -1,0 +1,56 @@
+
+name: PulseBoard CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Backend checks
+      - name: Install backend dependencies
+        working-directory: Backend
+        run: npm ci
+
+      - name: Check backend JavaScript syntax
+        working-directory: Backend
+        run: find src -type f -name '*.js' -print0 | xargs -0 -r -n1 node --check
+
+      # Frontend checks
+      - name: Install frontend dependencies
+        working-directory: Frontend
+        run: npm ci
+
+      - name: Run frontend lint
+        working-directory: Frontend
+        run: npm run lint
+
+      - name: Build frontend
+        working-directory: Frontend
+        run: npm run build
+
+  deploy:
+    runs-on: ubuntu-24.04
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Trigger Render deploy
+        run: |
+          curl --fail-with-body --show-error \
+            -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
