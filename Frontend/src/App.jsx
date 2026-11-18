@@ -28,36 +28,7 @@ import { useIssueSocket } from "./hooks/useIssueSocket";
 const queryClient = new QueryClient();
 
 function DashboardPage() {
-  const statuses = [
-    {
-      title: "Open Issues",
-      count: 0,
-      description: "Waiting for attention",
-      icon: "📂",
-      color: "#e9a23b",
-    },
-    {
-      title: "In Progress",
-      count: 0,
-      description: "Currently being worked on",
-      icon: "⚙️",
-      color: "#5b7cfa",
-    },
-    {
-      title: "Resolved",
-      count: 0,
-      description: "Successfully fixed",
-      icon: "✅",
-      color: "#20a779",
-    },
-    {
-      title: "Closed",
-      count: 0,
-      description: "Work officially completed",
-      icon: "🔒",
-      color: "#8b5cf6",
-    },
-  ];
+  
 
   return (
     <main className="dashboard">

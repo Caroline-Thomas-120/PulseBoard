@@ -76,7 +76,7 @@ export default function CreateIssueForm() {
       }
 
       let imageUrl = null;
-let imagePublicId = null;
+
 
 if (imageFile) {
   const uploadResponse = await uploadIssueImage(
@@ -85,7 +85,7 @@ if (imageFile) {
   );
 
   imageUrl = uploadResponse.image.url;
-  imagePublicId = uploadResponse.image.publicId;
+  
 }
       
       return createIssue(
